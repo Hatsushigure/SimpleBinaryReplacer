@@ -49,3 +49,11 @@ stdfs::path Utils::getFilePath()
 		throw ("Invalid file type. Did you give me a folder?");
 	return filePath;
 }
+
+Utils::InputMode Utils::getInputMode()
+{
+	auto ret = int {};
+	std::cin >> ret;
+	std::cin.get();
+	return static_cast<InputMode>(ret);
+}
