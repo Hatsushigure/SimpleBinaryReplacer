@@ -4,8 +4,6 @@
 #include "FileProcessor.h"
 #include "HexByteTranslator.h"
 
-char globalBuffer[65536] = "";
-
 auto main() -> int
 {
 	namespace stdfs = std::filesystem;
@@ -47,9 +45,9 @@ auto main() -> int
 		pattern = Utils::inputHexString();
 	else if (inputMode == Utils::ASCII)
 	{
-		std::cin.getline(globalBuffer, 65535);
-		for (int i = 0; globalBuffer[i] != '\0'; i++)
-			pattern.push_back(globalBuffer[i]);
+		std::cin.getline(Utils::GlobalBuffer, Utils::GlobalBufferSize - 1);
+		for (int i = 0; Utils::GlobalBuffer[i] != '\0'; i++)
+			pattern.push_back(Utils::GlobalBuffer[i]);
 	}
 
 	std::cout << "Please input the new content you want to use.\n";
@@ -58,9 +56,9 @@ auto main() -> int
 		newContent = Utils::inputHexString();
 	else if (inputMode == Utils::ASCII)
 	{
-		std::cin.getline(globalBuffer, 65535);
-		for (int i = 0; globalBuffer[i] != '\0'; i++)
-			newContent.push_back(globalBuffer[i]);
+		std::cin.getline(Utils::GlobalBuffer, Utils::GlobalBufferSize - 1);
+		for (int i = 0; Utils::GlobalBuffer[i] != '\0'; i++)
+			newContent.push_back(Utils::GlobalBuffer[i]);
 	}
 
 	auto patternIndex = fileProcessor->replaceFirstWith(pattern, newContent);
