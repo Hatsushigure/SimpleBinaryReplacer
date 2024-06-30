@@ -43,11 +43,11 @@ std::int64_t FileProcessor::findFirstOf(const std::vector<char>& pattern)
 	return ret;
 }
 
-bool FileProcessor::replaceFirstWith(const std::vector<char> pattern, const std::vector<char> newContent)
+std::int64_t FileProcessor::replaceFirstWith(const std::vector<char> pattern, const std::vector<char> newContent)
 {
 	auto strHelper = new BinStringHelper(m_vector);
 	auto ret = strHelper->replaceFirstWith(pattern, newContent);
-	if (ret)
+	if (ret >= 0)
 	{
 		auto fileStream = std::ofstream(m_filePath, std::ios_base::binary);
 		fileStream.write(m_vector.data(), m_vector.size());

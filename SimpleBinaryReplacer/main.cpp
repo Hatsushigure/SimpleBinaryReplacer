@@ -53,8 +53,6 @@ auto main() -> int
 		for (int i = 0; globalBuffer[i] != '\0'; i++)
 			pattern.push_back(globalBuffer[i]);
 	}
-	auto ind = fileProcessor->findFirstOf(pattern);
-	std::println("The location of the pattern is: {}", ind);
 
 	std::print(
 		"Please input the new content you want to replace the pattern with.\n"
@@ -74,7 +72,8 @@ auto main() -> int
 		for (int i = 0; globalBuffer[i] != '\0'; i++)
 			newContent.push_back(globalBuffer[i]);
 	}
-	fileProcessor->replaceFirstWith(pattern, newContent);
+	auto patternIndex = fileProcessor->replaceFirstWith(pattern, newContent);
+	std::print("The pattern index is: {}\nReplace completed.", patternIndex);
 
 	return 0;
 }

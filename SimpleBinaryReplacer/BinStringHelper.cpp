@@ -27,14 +27,14 @@ std::vector<char>::iterator BinStringHelper::findFirstOf(const std::vector<char>
 	return m_vector.end();
 }
 
-bool BinStringHelper::replaceFirstWith(const std::vector<char>& pattern, const std::vector<char> newContent)
+std::int64_t BinStringHelper::replaceFirstWith(const std::vector<char>& pattern, const std::vector<char> newContent)
 {
 	auto patternSize = pattern.size();
 	auto contentSize = newContent.size();
 	
 	auto targetIter = findFirstOf(pattern);
 	if (targetIter == m_vector.end())
-		return false;
+		return -1;
 
 	if (patternSize == contentSize)
 	{
@@ -48,7 +48,6 @@ bool BinStringHelper::replaceFirstWith(const std::vector<char>& pattern, const s
 		frontPart.append_range(newContent);
 		frontPart.append_range(backPart);
 		m_vector = frontPart;
-		return true;
 	}
-	return true;
+	return targetIter - begin(m_vector);
 }

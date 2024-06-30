@@ -22,5 +22,5 @@ public:
 public:
 	void readFile();
 	std::int64_t findFirstOf(const std::vector<char>& pattern);
-	bool replaceFirstWith(const std::vector<char> pattern, const std::vector<char> newContent);
+	std::int64_t replaceFirstWith(const std::vector<char> pattern, const std::vector<char> newContent);
 };
