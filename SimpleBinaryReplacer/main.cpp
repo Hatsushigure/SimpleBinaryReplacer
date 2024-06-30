@@ -5,24 +5,20 @@
 #include "FileProcessor.h"
 #include "HexByteTranslator.h"
 
+enum inputMode { Hex = 1, ASCII = 2 };
+
 char globalBuffer[65536] = "";
 
 auto main() -> int
 {
 	namespace stdfs = std::filesystem;
-	std::print("Please enter the file path. Please enter no more than 65535 chars.\n");
-	auto filePath = std::filesystem::path();
-	std::cin.getline(globalBuffer, 65535, '\n');
-	filePath = globalBuffer;	//A bug here. Quoted file cannot be recognized.
-	if (!stdfs::exists(filePath))
-	{
-		std::print("File does not exist.\n");
-		return 0;
+
+	auto filePath = stdfs::path {};
+	try {
+		filePath = Utils::getFilePath();
 	}
-	if (!stdfs::is_regular_file(filePath))
-	{
-		std::print("File type not right, did you feed a dir?\n");
-		return 0;
+	catch (const char* errMsg) {
+		std::println("{}", errMsg);
 	}
 
 	std::println("Reading file...");
