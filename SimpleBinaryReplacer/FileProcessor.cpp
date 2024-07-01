@@ -47,18 +47,13 @@ std::int64_t FileProcessor::replaceFirstWith(const BinStr& pattern, const BinStr
 {
 	auto strHelper = new BinStringHelper(m_content);
 	auto ret = strHelper->replaceFirstWith(pattern, newContent);
+
 	if (ret >= 0)
 	{
 		auto fileStream = std::ofstream(m_filePath, std::ios_base::binary);
 		fileStream.write(m_content.data(), m_content.size());
 		fileStream.close();
 	}
-
-	//auto iters = strHelper->findAllOf(pattern);
-	//std::println("The indexes of your pattern are:");
-	//for (auto& it : iters)
-	//	std::print("{} ", it - begin(m_vector));
-	//std::println();
 
 	delete strHelper;
 	return ret;
@@ -71,6 +66,22 @@ FileProcessor::IndexLst FileProcessor::findAllOf(const BinStr& pattern)
 	auto ret = IndexLst();
 	for (const auto& iter : iters)
 		ret.push_back(iter - begin(m_content));
+	delete strHelper;
+	return ret;
+}
+
+FileProcessor::IndexLst FileProcessor::replaceAllWith(const BinStr& pattern, const BinStr& newContent)
+{
+	auto strHelper = new BinStringHelper(m_content);
+	auto ret = strHelper->replaceAllWith(pattern, newContent);
+
+	if (!ret.empty())
+	{
+		auto fileStream = std::ofstream(m_filePath, std::ios_base::binary);
+		fileStream.write(m_content.data(), m_content.size());
+		fileStream.close();
+	}
+
 	delete strHelper;
 	return ret;
 }

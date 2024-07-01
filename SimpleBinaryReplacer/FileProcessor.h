@@ -27,4 +27,5 @@ public:
 	std::int64_t findFirstOf(const BinStr& pattern);
 	std::int64_t replaceFirstWith(const BinStr& pattern, const BinStr& newContent);
 	IndexLst findAllOf(const BinStr& pattern);
+	IndexLst replaceAllWith(const BinStr& pattern, const BinStr& newContent);
 };

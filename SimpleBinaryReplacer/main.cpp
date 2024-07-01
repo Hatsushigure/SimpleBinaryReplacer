@@ -63,6 +63,11 @@ auto main() -> int
 
 	auto patternIndex = fileProcessor->replaceFirstWith(pattern, newContent);
 	std::cout << "The pattern index is: " << patternIndex << '\n';
+	//auto patternIndexes = fileProcessor->replaceAllWith(pattern, newContent);
+	//std::cout << "Indexes are:\n";
+	//for (auto i : patternIndexes)
+	//	std::cout << i << ' ';
+	//std::cout << '\n';
 	std::cout << "Replace completed.";
 
 	return 0;
