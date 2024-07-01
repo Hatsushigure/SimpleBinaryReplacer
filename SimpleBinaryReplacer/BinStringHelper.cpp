@@ -108,8 +108,8 @@ BinStringHelper::IndexLst BinStringHelper::replaceAllWith(const BinStr& pattern,
 	auto splits = BinStrLst();
 	auto newStr = BinStr(begin(m_str), iters.at(0));
 	for (std::size_t i = 0; i < iters.size() - 1; i++)
-		splits.push_back(BinStr(iters.at(i) + contentLen, iters.at(i + 1)));
-	splits.push_back(BinStr(iters.back(), end(m_str)));
+		splits.push_back(BinStr(iters.at(i) + patternLen, iters.at(i + 1)));
+	splits.push_back(BinStr(iters.back() + patternLen, end(m_str)));
 	for (const auto& str : splits)
 	{
 		newStr.append_range(newContent);
