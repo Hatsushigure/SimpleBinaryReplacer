@@ -43,7 +43,7 @@ std::int64_t FileProcessor::findFirstOf(const std::vector<char>& pattern)
 	return ret;
 }
 
-std::int64_t FileProcessor::replaceFirstWith(const std::vector<char> pattern, const std::vector<char> newContent)
+std::int64_t FileProcessor::replaceFirstWith(const std::vector<char>& pattern, const std::vector<char>& newContent)
 {
 	auto strHelper = new BinStringHelper(m_vector);
 	auto ret = strHelper->replaceFirstWith(pattern, newContent);
@@ -53,6 +53,13 @@ std::int64_t FileProcessor::replaceFirstWith(const std::vector<char> pattern, co
 		fileStream.write(m_vector.data(), m_vector.size());
 		fileStream.close();
 	}
+
+	//auto iters = strHelper->findAllOf({'a', 'b', 'c'});
+	//std::println("The indexes of 'abc' are:");
+	//for (auto& it : iters)
+	//	std::print("{} ", it - begin(m_vector));
+	//std::println();
+
 	delete strHelper;
 	return ret;
 }
