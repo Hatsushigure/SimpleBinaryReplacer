@@ -28,38 +28,49 @@ void FileProcessor::readFile()
 	m_rawData = new char[m_fileSize];
 	fileStream.read(m_rawData, m_fileSize);
 	fileStream.close();
-	m_vector.assign(m_rawData, m_rawData + m_fileSize);
+	m_content.assign(m_rawData, m_rawData + m_fileSize);
 	delete[] m_rawData;
 	m_rawData = nullptr;
 }
 
-std::int64_t FileProcessor::findFirstOf(const std::vector<char>& pattern)
+std::int64_t FileProcessor::findFirstOf(const BinStr& pattern)
 {
-	auto strHelper = new BinStringHelper(m_vector);
-	auto ret = strHelper->findFirstOf(pattern) - begin(m_vector);
-	if (ret == m_vector.size())
+	auto strHelper = new BinStringHelper(m_content);
+	auto ret = strHelper->findFirstOf(pattern) - begin(m_content);
+	if (ret == m_content.size())
 		ret = -1;
 	delete strHelper;
 	return ret;
 }
 
-std::int64_t FileProcessor::replaceFirstWith(const std::vector<char>& pattern, const std::vector<char>& newContent)
+std::int64_t FileProcessor::replaceFirstWith(const BinStr& pattern, const BinStr& newContent)
 {
-	auto strHelper = new BinStringHelper(m_vector);
+	auto strHelper = new BinStringHelper(m_content);
 	auto ret = strHelper->replaceFirstWith(pattern, newContent);
 	if (ret >= 0)
 	{
 		auto fileStream = std::ofstream(m_filePath, std::ios_base::binary);
-		fileStream.write(m_vector.data(), m_vector.size());
+		fileStream.write(m_content.data(), m_content.size());
 		fileStream.close();
 	}
 
-	//auto iters = strHelper->findAllOf({'a', 'b', 'c'});
-	//std::println("The indexes of 'abc' are:");
+	//auto iters = strHelper->findAllOf(pattern);
+	//std::println("The indexes of your pattern are:");
 	//for (auto& it : iters)
 	//	std::print("{} ", it - begin(m_vector));
 	//std::println();
 
+	delete strHelper;
+	return ret;
+}
+
+FileProcessor::IndexLst FileProcessor::findAllOf(const BinStr& pattern)
+{
+	auto strHelper = new BinStringHelper(m_content);
+	auto iters = strHelper->findAllOf(pattern);
+	auto ret = IndexLst();
+	for (const auto& iter : iters)
+		ret.push_back(iter - begin(m_content));
 	delete strHelper;
 	return ret;
 }

@@ -1,12 +1,12 @@
 #include "BinStringHelper.h"
 
-BinStringHelper::BinStringHelper(BinStr& vector) :
-	m_vector {vector}
+BinStringHelper::BinStringHelper(BinStr& string) :
+	m_str {string}
 {}
 
 BinStringHelper::BinStrIterator BinStringHelper::findFirstOf(const BinStr& pattern)
 {
-	return findFirstOf(begin(m_vector), end(m_vector), pattern);
+	return findFirstOf(begin(m_str), end(m_str), pattern);
 }
 
 BinStringHelper::BinStrIterator BinStringHelper::findFirstOf(BinStrIterator begin, BinStrIterator end, const BinStr& pattern)
@@ -39,28 +39,28 @@ std::int64_t BinStringHelper::replaceFirstWith(const BinStr& pattern, const BinS
 	const auto contentSize = newContent.size();
 	
 	auto targetIter = findFirstOf(pattern);
-	if (targetIter == end(m_vector))
+	if (targetIter == end(m_str))
 		return -1;
 
 	if (patternSize == contentSize)
 	{
 		for (std::size_t i = 0; i < patternSize; i++)
-			m_vector.at(i + (targetIter - m_vector.begin())) = newContent.at(i);
+			m_str.at(i + (targetIter - m_str.begin())) = newContent.at(i);
 	}
 	else
 	{
-		auto frontPart = std::vector<char>(begin(m_vector), targetIter);
-		auto backPart = std::vector<char>(targetIter + patternSize, end(m_vector));
+		auto frontPart = std::vector<char>(begin(m_str), targetIter);
+		auto backPart = std::vector<char>(targetIter + patternSize, end(m_str));
 		frontPart.append_range(newContent);
 		frontPart.append_range(backPart);
-		m_vector = frontPart;
+		m_str = frontPart;
 	}
-	return targetIter - begin(m_vector);
+	return targetIter - begin(m_str);
 }
 
 BinStringHelper::BinStrIteratorLst BinStringHelper::findAllOf(const BinStr& pattern)
 {
-	return findAllOf(begin(m_vector), end(m_vector), pattern);
+	return findAllOf(begin(m_str), end(m_str), pattern);
 }
 
 BinStringHelper::BinStrIteratorLst BinStringHelper::findAllOf(BinStrIterator begin, BinStrIterator end, const BinStr& pattern)
@@ -93,7 +93,7 @@ BinStringHelper::IndexLst BinStringHelper::replaceAllWith(const BinStr& pattern,
 		return ret;
 
 	for (const auto& iter : iters)
-		ret.push_back(iter - begin(m_vector));
+		ret.push_back(iter - begin(m_str));
 
 	if (patternLen == contentLen)
 	{
@@ -106,15 +106,15 @@ BinStringHelper::IndexLst BinStringHelper::replaceAllWith(const BinStr& pattern,
 	}
 
 	auto splits = BinStrLst();
-	auto newStr = BinStr(begin(m_vector), iters.at(0));
+	auto newStr = BinStr(begin(m_str), iters.at(0));
 	for (std::size_t i = 0; i < iters.size() - 1; i++)
 		splits.push_back(BinStr(iters.at(i) + contentLen, iters.at(i + 1)));
-	splits.push_back(BinStr(iters.back(), end(m_vector)));
+	splits.push_back(BinStr(iters.back(), end(m_str)));
 	for (const auto& str : splits)
 	{
 		newStr.append_range(newContent);
 		newStr.append_range(str);
 	}
-	m_vector = newStr;
+	m_str = newStr;
 	return ret;
 }
