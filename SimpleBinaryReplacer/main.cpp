@@ -31,7 +31,7 @@ auto main() -> int
 	std::cout <<
 		"Please decide how you want to input.\n"
 		"If in hex, divide it by 1 byte with a space. If in ASCII, input only one line.\n"
-		"Hex mode ends with \"XX\" of \"xx\", with no 0x at the front.\n"
+		"Hex mode ends with 'XX' or 'xx', with no 0x at the front.\n"
 		"Note that the length limit for ASCII mode is also 65535 chars.\n"
 		"\n"
 		"[1] Hex mode\t[2] ASCII mode\n"
