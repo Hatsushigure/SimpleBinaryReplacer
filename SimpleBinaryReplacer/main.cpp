@@ -61,14 +61,26 @@ auto main() -> int
 			newContent.push_back(Utils::GlobalBuffer[i]);
 	}
 
-	auto patternIndex = fileProcessor->replaceFirstWith(pattern, newContent);
-	std::cout << "The pattern index is: " << patternIndex << '\n';
-	//auto patternIndexes = fileProcessor->replaceAllWith(pattern, newContent);
-	//std::cout << "Indexes are:\n";
-	//for (auto i : patternIndexes)
-	//	std::cout << i << ' ';
-	//std::cout << '\n';
-	std::cout << "Replace completed.";
+	std::cout << "Please choose how you want to replace.\n";
+	std::cout << "[1] Replace first one\t[2] Replace all\n";
+	std::cout << "Your choice: [ ]\b\b";
+	auto replaceMode = int {0};
+	std::cin >> replaceMode;
+	if (replaceMode == 1)
+	{
+		auto patternIndex = fileProcessor->replaceFirstWith(pattern, newContent);
+		std::cout << "The pattern index is: " << patternIndex << '\n';
 
+	}
+	else if (replaceMode == 2)
+	{
+		auto patternIndexes = fileProcessor->replaceAllWith(pattern, newContent);
+		std::cout << "Indexes are:\n";
+		for (auto i : patternIndexes)
+			std::cout << i << ' ';
+		std::cout << '\n';
+	}
+	std::cout << "Replace completed.";
+	
 	return 0;
 }

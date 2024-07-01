@@ -41,6 +41,7 @@ std::int64_t BinStringHelper::replaceFirstWith(const BinStr& pattern, const BinS
 	auto targetIter = findFirstOf(pattern);
 	if (targetIter == end(m_str))
 		return -1;
+	auto ret = targetIter - begin(m_str);
 
 	if (patternSize == contentSize)
 	{
@@ -55,7 +56,7 @@ std::int64_t BinStringHelper::replaceFirstWith(const BinStr& pattern, const BinS
 		frontPart.append_range(backPart);
 		m_str = frontPart;
 	}
-	return targetIter - begin(m_str);
+	return ret;
 }
 
 BinStringHelper::BinStrIteratorLst BinStringHelper::findAllOf(const BinStr& pattern)
