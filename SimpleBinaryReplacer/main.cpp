@@ -15,6 +15,7 @@ auto main() -> int
 	}
 	catch (const char* errMsg) {
 		std::cout << errMsg << '\n';
+		return 0;
 	}
 
 	std::cout << "Reading file...\n";
@@ -33,7 +34,6 @@ auto main() -> int
 		"If in hex, divide it by 1 byte with a space. If in ASCII, input only one line.\n"
 		"Hex mode ends with 'XX' or 'xx', with no 0x at the front.\n"
 		"Note that the length limit for ASCII mode is also 65535 chars.\n"
-		"\n"
 		"[1] Hex mode\t[2] ASCII mode\n"
 		"Your choice: [ ]\b\b";
 	auto inputMode = Utils::getInputMode();
