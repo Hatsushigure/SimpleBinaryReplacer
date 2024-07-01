@@ -52,8 +52,37 @@ stdfs::path Utils::getFilePath()
 
 Utils::InputMode Utils::getInputMode()
 {
-	auto ret = int {};
-	std::cin >> ret;
+	std::cout <<
+		"Please decide how you want to input.\n"
+		"If in hex, divide it by 1 byte with a space. If in ASCII, input only one line.\n"
+		"Hex mode ends with 'XX' or 'xx', with no 0x at the front.\n"
+		"Note that the length limit for ASCII mode is also 65535 chars.\n"
+		"[1] Hex mode\t[2] ASCII mode\n"
+		"Your choice: [ ]\b\b";
+	auto inputMode = int {};
+	std::cin >> inputMode;
 	std::cin.get();
-	return static_cast<InputMode>(ret);
+	return static_cast<InputMode>(inputMode);
+}
+
+Utils::RunMode Utils::getRunMode()
+{
+	std::cout << "Please enter what you wanna do.\n";
+	std::cout << "[1] Find pattern\t[2] Replace pattern\n";
+	std::cout << "Your chouce: [ ]\b\b";
+	auto runMode = int {0};
+	std::cin >> runMode;
+	std::cin.get();
+	return static_cast<RunMode>(runMode);
+}
+
+Utils::ReplaceMode Utils::getReplaceMode()
+{
+	std::cout << "Please choose how you want to replace.\n";
+	std::cout << "[1] Replace first one\t[2] Replace all\n";
+	std::cout << "Your choice: [ ]\b\b";
+	auto replaceMode = int {0};
+	std::cin >> replaceMode;
+	std::cin.get();
+	return static_cast<ReplaceMode>(replaceMode);
 }
