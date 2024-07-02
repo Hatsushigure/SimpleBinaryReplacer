@@ -4,12 +4,12 @@ BinStringHelper::BinStringHelper(BinStr& string) :
 	m_str {string}
 {}
 
-BinStringHelper::BinStrIterator BinStringHelper::findFirstOf(const BinStr& pattern)
+BinStrIterator BinStringHelper::findFirstOf(const BinStr& pattern)
 {
 	return findFirstOf(begin(m_str), end(m_str), pattern);
 }
 
-BinStringHelper::BinStrIterator BinStringHelper::findFirstOf(BinStrIterator begin, BinStrIterator end, const BinStr& pattern)
+BinStrIterator BinStringHelper::findFirstOf(BinStrIterator begin, BinStrIterator end, const BinStr& pattern)
 {
 	const auto patternLen = pattern.size();
 	const auto selfLen = static_cast<std::size_t>(end - begin);
@@ -50,8 +50,8 @@ std::int64_t BinStringHelper::replaceFirstWith(const BinStr& pattern, const BinS
 	}
 	else
 	{
-		auto frontPart = std::vector<char>(begin(m_str), targetIter);
-		auto backPart = std::vector<char>(targetIter + patternSize, end(m_str));
+		auto frontPart = BinStr(begin(m_str), targetIter);
+		auto backPart = BinStr(targetIter + patternSize, end(m_str));
 		frontPart.append_range(newContent);
 		frontPart.append_range(backPart);
 		m_str = frontPart;
@@ -59,12 +59,12 @@ std::int64_t BinStringHelper::replaceFirstWith(const BinStr& pattern, const BinS
 	return ret;
 }
 
-BinStringHelper::BinStrIteratorLst BinStringHelper::findAllOf(const BinStr& pattern)
+BinStrIteratorLst BinStringHelper::findAllOf(const BinStr& pattern)
 {
 	return findAllOf(begin(m_str), end(m_str), pattern);
 }
 
-BinStringHelper::BinStrIteratorLst BinStringHelper::findAllOf(BinStrIterator begin, BinStrIterator end, const BinStr& pattern)
+BinStrIteratorLst BinStringHelper::findAllOf(BinStrIterator begin, BinStrIterator end, const BinStr& pattern)
 {
 	const auto patternLen = pattern.size();
 
@@ -82,7 +82,7 @@ BinStringHelper::BinStrIteratorLst BinStringHelper::findAllOf(BinStrIterator beg
 	return ret;
 }
 
-BinStringHelper::IndexLst BinStringHelper::replaceAllWith(const BinStr& pattern, const BinStr& newContent)
+IndexLst BinStringHelper::replaceAllWith(const BinStr& pattern, const BinStr& newContent)
 {
 	const auto patternLen = pattern.size();
 	const auto contentLen = newContent.size();

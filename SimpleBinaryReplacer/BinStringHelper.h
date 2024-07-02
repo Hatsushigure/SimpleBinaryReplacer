@@ -1,14 +1,9 @@
 #pragma once
 #include <vector>
+#include "Utils.h"
 
 class BinStringHelper
 {
-public:
-	using BinStr = std::vector<char>;
-	using BinStrIterator = BinStr::iterator;
-	using BinStrIteratorLst = std::vector<BinStrIterator>;
-	using IndexLst = std::vector<std::int64_t>;
-	using BinStrLst = std::vector<BinStr>;
 private:
 	BinStr& m_str;
 public:

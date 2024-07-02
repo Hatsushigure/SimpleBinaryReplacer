@@ -4,6 +4,10 @@
 
 namespace stdfs = std::filesystem;
 using BinStr = std::vector<char>;
+using BinStrLst = std::vector<BinStr>;
+using BinStrIterator = BinStr::iterator;
+using BinStrIteratorLst = std::vector<BinStrIterator>;
+using IndexLst = std::vector<std::int64_t>;
 
 class Utils
 {

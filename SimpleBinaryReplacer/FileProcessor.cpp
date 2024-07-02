@@ -59,7 +59,7 @@ std::int64_t FileProcessor::replaceFirstWith(const BinStr& pattern, const BinStr
 	return ret;
 }
 
-FileProcessor::IndexLst FileProcessor::findAllOf(const BinStr& pattern)
+IndexLst FileProcessor::findAllOf(const BinStr& pattern)
 {
 	auto strHelper = new BinStringHelper(m_content);
 	auto iters = strHelper->findAllOf(pattern);
@@ -70,7 +70,7 @@ FileProcessor::IndexLst FileProcessor::findAllOf(const BinStr& pattern)
 	return ret;
 }
 
-FileProcessor::IndexLst FileProcessor::replaceAllWith(const BinStr& pattern, const BinStr& newContent)
+IndexLst FileProcessor::replaceAllWith(const BinStr& pattern, const BinStr& newContent)
 {
 	auto strHelper = new BinStringHelper(m_content);
 	auto ret = strHelper->replaceAllWith(pattern, newContent);

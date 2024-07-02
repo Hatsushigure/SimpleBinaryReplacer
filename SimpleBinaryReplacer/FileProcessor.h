@@ -1,14 +1,13 @@
 #pragma once
 #include <filesystem>
 #include <vector>
+#include "Utils.h"
 
 namespace stdfs = std::filesystem;
 
 class FileProcessor
 {
 public:
-	using IndexLst = std::vector<std::int64_t>;
-	using BinStr = std::vector<char>;
 	const std::size_t MaxFileSize = 1 << 10 << 10 << 10;
 private:
 	stdfs::path m_filePath {};
