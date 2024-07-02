@@ -34,15 +34,7 @@ auto main() -> int
 	auto runMode = Utils::getRunMode();
 
 	std::cout << "Please input the pattern you want to find.\n";
-	auto pattern = std::vector<char>();
-	if (inputMode == Utils::Hex)
-		pattern = Utils::inputHexString();
-	else if (inputMode == Utils::ASCII)
-	{
-		std::cin.getline(Utils::GlobalBuffer, Utils::GlobalBufferSize - 1);
-		for (int i = 0; Utils::GlobalBuffer[i] != '\0'; i++)
-			pattern.push_back(Utils::GlobalBuffer[i]);
-	}
+	auto pattern = Utils::getBinString(inputMode);
 
 	if (runMode == Utils::Find)
 	{
@@ -86,15 +78,7 @@ auto main() -> int
 	else if (runMode == Utils::Replace)
 	{
 		std::cout << "Please input the new content you want to use.\n";
-		auto newContent = std::vector<char>();
-		if (inputMode == Utils::Hex)
-			newContent = Utils::inputHexString();
-		else if (inputMode == Utils::ASCII)
-		{
-			std::cin.getline(Utils::GlobalBuffer, Utils::GlobalBufferSize - 1);
-			for (int i = 0; Utils::GlobalBuffer[i] != '\0'; i++)
-				newContent.push_back(Utils::GlobalBuffer[i]);
-		}
+		auto newContent = Utils::getBinString(inputMode);
 
 		auto replaceMode = Utils::getReplaceMode();
 		if (replaceMode == Utils::First)

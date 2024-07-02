@@ -3,6 +3,7 @@
 #include <filesystem>
 
 namespace stdfs = std::filesystem;
+using BinStr = std::vector<char>;
 
 class Utils
 {
@@ -19,5 +20,6 @@ public:
 	static Utils::InputMode getInputMode();
 	static Utils::RunMode getRunMode();
 	static Utils::ReplaceMode getReplaceMode();
+	static BinStr getBinString(InputMode mode);
 };
 

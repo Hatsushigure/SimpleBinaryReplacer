@@ -86,3 +86,24 @@ Utils::ReplaceMode Utils::getReplaceMode()
 	std::cin.get();
 	return static_cast<ReplaceMode>(replaceMode);
 }
+
+BinStr Utils::getBinString(InputMode mode)
+{
+	auto ret = BinStr();
+	if (mode == Utils::Hex)
+	{
+		try {
+			ret = Utils::inputHexString();
+		}
+		catch (const char* errStr) {
+			throw errStr;
+		}
+	}
+	else if (mode == Utils::ASCII)
+	{
+		std::cin.getline(Utils::GlobalBuffer, Utils::GlobalBufferSize - 1);
+		for (int i = 0; Utils::GlobalBuffer[i] != '\0'; i++)
+			ret.push_back(Utils::GlobalBuffer[i]);
+	}
+	return ret;
+}
