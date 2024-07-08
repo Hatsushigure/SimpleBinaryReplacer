@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include "HexByteTranslator.h"
-#include <print>
 
 char Utils::GlobalBuffer[Utils::GlobalBufferSize] = {};
 

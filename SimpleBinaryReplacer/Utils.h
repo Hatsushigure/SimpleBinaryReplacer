@@ -19,7 +19,7 @@ public:
 public:
 	static char GlobalBuffer[GlobalBufferSize];
 public:
-	static std::vector<char> inputHexString();
+	static BinStr inputHexString();
 	static stdfs::path getFilePath();
 	static Utils::InputMode getInputMode();
 	static Utils::RunMode getRunMode();

@@ -51,10 +51,12 @@ std::int64_t BinStringHelper::replaceFirstWith(const BinStr& pattern, const BinS
 	else
 	{
 		auto frontPart = BinStr(begin(m_str), targetIter);
+		auto frontPartHelper = new BinStringHelper(frontPart);
 		auto backPart = BinStr(targetIter + patternSize, end(m_str));
-		frontPart.append_range(newContent);
-		frontPart.append_range(backPart);
+		frontPartHelper->appendString(newContent);
+		frontPartHelper->appendString(backPart);
 		m_str = frontPart;
+		delete frontPartHelper;
 	}
 	return ret;
 }
@@ -108,14 +110,23 @@ IndexLst BinStringHelper::replaceAllWith(const BinStr& pattern, const BinStr& ne
 
 	auto splits = BinStrLst();
 	auto newStr = BinStr(begin(m_str), iters.at(0));
+	auto newStrHelper = new BinStringHelper(newStr);
 	for (std::size_t i = 0; i < iters.size() - 1; i++)
 		splits.push_back(BinStr(iters.at(i) + patternLen, iters.at(i + 1)));
 	splits.push_back(BinStr(iters.back() + patternLen, end(m_str)));
 	for (const auto& str : splits)
 	{
-		newStr.append_range(newContent);
-		newStr.append_range(str);
+		newStrHelper->appendString(newContent);
+		newStrHelper->appendString(str);
 	}
 	m_str = newStr;
+	delete newStrHelper;
 	return ret;
+}
+
+void BinStringHelper::appendString(const BinStr &other)
+{
+	m_str.reserve(m_str.size() + other.size());
+	for (const auto ch : other)
+		m_str.push_back(ch);
 }

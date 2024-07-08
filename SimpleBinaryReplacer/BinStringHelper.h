@@ -16,4 +16,5 @@ public:
 	BinStrIteratorLst findAllOf(const BinStr& pattern);
 	static BinStrIteratorLst findAllOf(BinStrIterator begin, BinStrIterator end, const BinStr& pattern);
 	IndexLst replaceAllWith(const BinStr& pattern, const BinStr& newContent);
+	void appendString(const BinStr& other);
 };
