@@ -86,6 +86,17 @@ Utils::ReplaceMode Utils::getReplaceMode()
 	return static_cast<ReplaceMode>(replaceMode);
 }
 
+Utils::BackupOption Utils::getBackupOption()
+{
+	std::cout << "Please choose whether to backup the original file.\n";
+	std::cout << "[1] Backup\t[2] Overwrite\n";
+	std::cout << "Your choice: [ ]\b\b";
+	auto backupOption = int {0};
+	std::cin >> backupOption;
+	std::cin.get();
+	return static_cast<BackupOption>(backupOption);
+}
+
 BinStr Utils::getBinString(InputMode mode)
 {
 	auto ret = BinStr();
@@ -105,4 +116,27 @@ BinStr Utils::getBinString(InputMode mode)
 			ret.push_back(Utils::GlobalBuffer[i]);
 	}
 	return ret;
+}
+
+stdfs::path Utils::findAvailableFilename(const stdfs::path &dir, const stdfs::path& target)
+{
+    if (!stdfs::exists(dir) || !stdfs::is_directory(dir))
+		throw ("Please give an existing dir.");
+	if (target.parent_path() != dir)
+		throw ("The target must be under the dir.");
+	if (!stdfs::exists(target))
+		return target;
+
+	for (int i = 1; i <= GlobalBufferSize; i++)
+	{
+		auto stem = target.stem();
+		auto extension = target.extension();
+		auto newName = stem.string() + " (" + std::to_string(i) + ')' + extension.string();
+		auto newPath = dir / newName;
+		if (!stdfs::exists(newPath))
+			return newPath;
+		if (i == GlobalBufferSize)
+			throw ("Too much duplicating filenames.");
+	}
+	return {};
 }
