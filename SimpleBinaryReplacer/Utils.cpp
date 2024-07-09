@@ -120,7 +120,7 @@ stdfs::path Utils::findAvailableFilename(const stdfs::path &dir, const stdfs::pa
 	{
 		auto stem = target.stem();
 		auto extension = target.extension();
-		auto newName = stem.string() + ' ' + std::to_string(i) + ' ' + extension.string();
+		auto newName = stem.string() + " (" + std::to_string(i) + ')' + extension.string();
 		auto newPath = dir / newName;
 		if (!stdfs::exists(newPath))
 			return newPath;
