@@ -24,7 +24,7 @@ public:
 public:
 	void readFile();
 	std::int64_t findFirstOf(const BinStr& pattern);
-	std::int64_t replaceFirstWith(const BinStr& pattern, const BinStr& newContent);
+	std::int64_t replaceFirstWith(const BinStr& pattern, const BinStr& newContent, bool doOverwrite);
 	IndexLst findAllOf(const BinStr& pattern);
-	IndexLst replaceAllWith(const BinStr& pattern, const BinStr& newContent);
+	IndexLst replaceAllWith(const BinStr& pattern, const BinStr& newContent, bool doOverwrite);
 };

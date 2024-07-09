@@ -42,17 +42,29 @@ std::int64_t FileProcessor::findFirstOf(const BinStr& pattern)
 	return ret;
 }
 
-std::int64_t FileProcessor::replaceFirstWith(const BinStr& pattern, const BinStr& newContent)
+std::int64_t FileProcessor::replaceFirstWith(const BinStr& pattern, const BinStr& newContent, bool doOverwrite)
 {
 	auto strHelper = new BinStringHelper(m_content);
 	auto ret = strHelper->replaceFirstWith(pattern, newContent);
 
 	if (ret >= 0)
 	{
-		auto fileStream = std::ofstream(
-			Utils::findAvailableFilename(m_filePath.parent_path(), m_filePath), 
-			std::ios_base::binary
+		auto filePath = stdfs::path {};
+		if (doOverwrite)
+			filePath = m_filePath;
+		else
+		{
+			filePath = Utils::findAvailableFilename(
+				m_filePath.parent_path(),
+				m_filePath.replace_filename(
+					m_filePath.stem().string() + 
+					" - modified" + 
+					m_filePath.extension().string()
+					)
 			);
+		}
+
+		auto fileStream = std::ofstream(filePath, std::ios_base::binary);
 		fileStream.write(m_content.data(), m_content.size());
 		fileStream.close();
 	}
@@ -72,13 +84,28 @@ IndexLst FileProcessor::findAllOf(const BinStr& pattern)
 	return ret;
 }
 
-IndexLst FileProcessor::replaceAllWith(const BinStr& pattern, const BinStr& newContent)
+IndexLst FileProcessor::replaceAllWith(const BinStr& pattern, const BinStr& newContent, bool doOverwrite)
 {
 	auto strHelper = new BinStringHelper(m_content);
 	auto ret = strHelper->replaceAllWith(pattern, newContent);
 
 	if (!ret.empty())
 	{
+		auto filePath = stdfs::path {};
+		if (doOverwrite)
+			filePath = m_filePath;
+		else
+		{
+			filePath = Utils::findAvailableFilename(
+				m_filePath.parent_path(),
+				m_filePath.replace_filename(
+					m_filePath.stem().string() + 
+					" - modified" + 
+					m_filePath.extension().string()
+					)
+			);
+		}
+
 		auto fileStream = std::ofstream(
 			Utils::findAvailableFilename(m_filePath.parent_path(), m_filePath), 
 			std::ios_base::binary

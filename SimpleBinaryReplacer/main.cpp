@@ -80,11 +80,14 @@ auto main() -> int
 		std::cout << "Please input the new content you want to use.\n";
 		auto newContent = Utils::getBinString(inputMode);
 
+		auto backupOption = Utils::getBackupOption();
+		auto doOverwrite = (backupOption == Utils::Overwrite);
+
 		auto replaceMode = Utils::getReplaceMode();
 		if (replaceMode == Utils::First)
-			fileProcessor->replaceFirstWith(pattern, newContent);
+			fileProcessor->replaceFirstWith(pattern, newContent, doOverwrite);
 		else if (replaceMode == Utils::All)
-			fileProcessor->replaceAllWith(pattern, newContent);
+			fileProcessor->replaceAllWith(pattern, newContent, doOverwrite);
 		std::cout << "Replace completed.";
 	}
 

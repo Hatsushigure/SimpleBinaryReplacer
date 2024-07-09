@@ -86,6 +86,17 @@ Utils::ReplaceMode Utils::getReplaceMode()
 	return static_cast<ReplaceMode>(replaceMode);
 }
 
+Utils::BackupOption Utils::getBackupOption()
+{
+	std::cout << "Please choose whether to backup the original file.\n";
+	std::cout << "[1] Backup\t[2] Overwrite\n";
+	std::cout << "Your choice: [ ]\b\b";
+	auto backupOption = int {0};
+	std::cin >> backupOption;
+	std::cin.get();
+	return static_cast<BackupOption>(backupOption);
+}
+
 BinStr Utils::getBinString(InputMode mode)
 {
 	auto ret = BinStr();

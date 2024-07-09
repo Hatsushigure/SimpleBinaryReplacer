@@ -15,6 +15,7 @@ public:
 	enum InputMode { Hex = 1, ASCII = 2 };
 	enum RunMode { Find = 1, Replace = 2 };
 	enum ReplaceMode { First = 1, All = 2 };
+	enum BackupOption {Backup = 1, Overwrite = 0};
 	static constexpr int GlobalBufferSize = 65536;
 public:
 	static char GlobalBuffer[GlobalBufferSize];
@@ -24,6 +25,7 @@ public:
 	static Utils::InputMode getInputMode();
 	static Utils::RunMode getRunMode();
 	static Utils::ReplaceMode getReplaceMode();
+	static Utils::BackupOption getBackupOption();
 	static BinStr getBinString(InputMode mode);
 	static stdfs::path findAvailableFilename(const stdfs::path& dir, const stdfs::path& target);
 };
