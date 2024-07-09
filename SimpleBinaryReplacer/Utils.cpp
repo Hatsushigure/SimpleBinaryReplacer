@@ -127,4 +127,5 @@ stdfs::path Utils::findAvailableFilename(const stdfs::path &dir, const stdfs::pa
 		if (i == GlobalBufferSize)
 			throw ("Too much duplicating filenames.");
 	}
+	return {};
 }

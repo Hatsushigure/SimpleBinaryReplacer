@@ -49,7 +49,10 @@ std::int64_t FileProcessor::replaceFirstWith(const BinStr& pattern, const BinStr
 
 	if (ret >= 0)
 	{
-		auto fileStream = std::ofstream(m_filePath, std::ios_base::binary);
+		auto fileStream = std::ofstream(
+			Utils::findAvailableFilename(m_filePath.parent_path(), m_filePath), 
+			std::ios_base::binary
+			);
 		fileStream.write(m_content.data(), m_content.size());
 		fileStream.close();
 	}
@@ -76,7 +79,10 @@ IndexLst FileProcessor::replaceAllWith(const BinStr& pattern, const BinStr& newC
 
 	if (!ret.empty())
 	{
-		auto fileStream = std::ofstream(m_filePath, std::ios_base::binary);
+		auto fileStream = std::ofstream(
+			Utils::findAvailableFilename(m_filePath.parent_path(), m_filePath), 
+			std::ios_base::binary
+			);
 		fileStream.write(m_content.data(), m_content.size());
 		fileStream.close();
 	}
