@@ -1,6 +1,7 @@
 #include "Utils.h"
 #include <iostream>
 #include <string>
+#include <format>
 #include "HexByteTranslator.h"
 
 char Utils::GlobalBuffer[Utils::GlobalBufferSize] = {};
@@ -105,4 +106,26 @@ BinStr Utils::getBinString(InputMode mode)
 			ret.push_back(Utils::GlobalBuffer[i]);
 	}
 	return ret;
+}
+
+stdfs::path Utils::findAvailableFilename(const stdfs::path &dir, const stdfs::path& target)
+{
+    if (!stdfs::exists(dir) || !stdfs::is_directory(dir))
+		throw ("Please give an existing dir.");
+	if (target.parent_path() != dir)
+		throw ("The target must be under the dir.");
+	if (!stdfs::exists(target))
+		return target;
+
+	for (int i = 1; i <= GlobalBufferSize; i++)
+	{
+		auto stem = target.stem();
+		auto extension = target.extension();
+		auto newName = std::format("{}{}{}{}{}", stem.string(), ' ', i, ' ', extension);
+		auto newPatn = dir / newName;
+		if (!stdfs::exists(newPath))
+			return newPath;
+		if (i == GlobalBufferSize)
+			throw ("Too much duplicating filenames.")
+	}
 }

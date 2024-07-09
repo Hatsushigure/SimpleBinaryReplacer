@@ -25,5 +25,6 @@ public:
 	static Utils::RunMode getRunMode();
 	static Utils::ReplaceMode getReplaceMode();
 	static BinStr getBinString(InputMode mode);
+	static stdfs::path findAvailableFilename(const stdfs::path& dir, const stdfs::path& target);
 };
 
