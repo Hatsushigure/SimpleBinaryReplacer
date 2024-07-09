@@ -1,7 +1,6 @@
 #include "Utils.h"
 #include <iostream>
 #include <string>
-#include <format>
 #include "HexByteTranslator.h"
 
 char Utils::GlobalBuffer[Utils::GlobalBufferSize] = {};
@@ -121,11 +120,11 @@ stdfs::path Utils::findAvailableFilename(const stdfs::path &dir, const stdfs::pa
 	{
 		auto stem = target.stem();
 		auto extension = target.extension();
-		auto newName = std::format("{}{}{}{}{}", stem.string(), ' ', i, ' ', extension);
-		auto newPatn = dir / newName;
+		auto newName = stem.string() + ' ' + std::to_string(i) + ' ' + extension.string();
+		auto newPath = dir / newName;
 		if (!stdfs::exists(newPath))
 			return newPath;
 		if (i == GlobalBufferSize)
-			throw ("Too much duplicating filenames.")
+			throw ("Too much duplicating filenames.");
 	}
 }
